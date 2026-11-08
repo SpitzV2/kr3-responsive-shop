@@ -4,23 +4,24 @@
 :root {
   --color-bg: #ffffff;
   --color-text: #232238;           /* Мягкий чернильно-синий вместо черного */
-  --color-muted: #666666;
-  --color-primary: #B8A26D;
-  --color-primary-dark: #B89034;
+  --color-muted: #555555;          /* Сбалансированный контрастный серый (WCAG AA > 4.5:1) */
+  --color-primary: #826829;        /* Фирменный золотисто-песочный цвет с высоким контрастом (> 5.3:1) */
+  --color-primary-dark: #634f1e;
   --color-border: #3D7854;
   --color-surface: #F2F1EB;
   --color-surface-accent: #B8B4A0; /* Мягкий светло-серый тауп палитры */
   --color-danger: #631B1E;
   --color-success: #3D7854;
-  --color-success-bg: #eefaf0;    /* Исправлено: нежный пастельный фон */
+  --color-success-bg: #eefaf0;    /* Нежный пастельный фон */
   --color-white: #ffffff;
   --color-shapka: #F0EBD5;
 
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
+  /* Относительные единицы rem для масштабируемости (1rem = 16px) */
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem;  /* 8px */
+  --space-md: 1rem;    /* 16px */
+  --space-lg: 1.5rem;  /* 24px */
+  --space-xl: 2rem;    /* 32px */
 
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -55,15 +56,37 @@ header {
   flex-shrink: 0;
 }
 main {
-  flex-grow: 1; /*расягиваться*/
+  flex-grow: 1;
   flex-shrink: 0;
   padding: var(--space-lg);
 }
 footer {
   padding: var(--space-lg);
   background-color: var(--color-surface);
-  flex-shrink: 0; /*разрешает урезать*/
-  margin-top: auto;/*• максимально сильно оттолкнуть footer в самый низ экрана.*/
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+/* Ссылка пропуска для пользователей клавиатуры (A11y) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 1000;
+  padding: 8px 14px;
+  color: #ffffff;
+  background-color: #111111;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 700;
+  transition: top 0.2s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 16px;
+  outline: 3px solid #0057b8;
+  outline-offset: 3px;
 }
 
 /* ===============================
@@ -71,42 +94,40 @@ footer {
    =============================== */
 a {
   color: var(--color-primary);
-  text-decoration: none; /*убирает стандартное браузерное подчёркивание у текста ссылок,*/
+  text-decoration: none;
 }
 a:hover {
-  color: var(--color-primary-dark);/*срабатывает, когда пользователь наводит курсор мыши на ссылку */
+  color: var(--color-primary-dark);
 }
-a:focus-visible {
-  outline: 2px solid var(--color-primary);/* создаёт чёткую сплошную рамку вокруг ссылки, на которую сфокусирован пользователь*/
-  outline-offset: 3px; /*тодвигает эту рамку наружу на 3 пикселя от текста,*/
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #0057b8;
+  outline-offset: 3px;
 }
 
 .site-header {
   background-color: var(--color-shapka);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
-  /*
-  • box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); — добавляет под шапкой мягкую, едва заметную тень
-	• 0 — тень не смещена по горизонтали
-	• 2px — тень падает ровно на 2 пикселя вниз
-	• 10px — размытие тени делает её плавной
-  */
 }
 .site-header__inner {
   max-width: var(--container-width);
-  margin: 0 auto;/*• auto заставляет браузер автоматически рассчитать одинаковые отступы справа и слева, выравнивая блок строго по центру экрана.*/
+  margin: 0 auto;
   padding: var(--space-lg) var(--space-md);
   display: flex;
   flex-direction: row;
-  justify-content: space-between; /*• магия выравнивания. Она расталкивает элементы по краям контейнера: логотип улетает максимально влево, а меню навигации — максимально вправо.*/
-  align-items: center; /* выравнивает логотип и ссылки по вертикали точно по центру друг относительно друга, */
+  justify-content: space-between;
+  align-items: center;
   gap: var(--space-md);
 }
 .site-header__logo {
   font-weight: 700;
   color: var(--color-text);
-  text-decoration: none; /*убирает нижнее подчеркивание, свойственное ссылкам по умолчанию.*/
-  font-size: 18px;
+  text-decoration: none;
+  font-size: 1.125rem; /* 18px */
 }
 .site-nav__list {
   display: flex;
@@ -116,28 +137,26 @@ a:focus-visible {
   gap: var(--space-md);
   padding: 0;
   margin: 0;
-  list-style: none;/*стирает встроенные браузерные точки-маркеры списка.
-*/
+  list-style: none;
 }
 .site-nav__item {
   margin-bottom: 0;
 }
 .site-nav__link {
   display: inline-block;
-  /*•  превращает строчную ссылку в строчно-блочную MDN Web Docs. Это необходимо для того, чтобы у ссылки начали правильно работать внутренние отступы (padding) со всех четырех сторон MDN Web Docs.*/
   padding: var(--space-xs) var(--space-sm);
-  color: var(--color-primary);
+  color: var(--color-text);
   text-decoration: none;
-  font-size: 15px;
+  font-size: 0.9375rem; /* 15px */
   border-radius: var(--radius-sm);
 }
 .site-nav__link:hover {
   color: var(--color-primary-dark);
   text-decoration: underline;
-  /*срабатывает в момент, когда пользователь наводит мышку на пункт меню MDN Web Docs. Цвет текста мгновенно становится более темным и насыщенным, а под словом появляется аккуратная линия подчёркивания.*/
 }
-.site-nav__link--active {
-  color: var(--color-primary-dark);
+.site-nav__link--active,
+.site-nav__link[aria-current="page"] {
+  color: #245837;
   font-weight: 700;
 }
 
@@ -156,14 +175,13 @@ a:focus-visible {
   margin: 0 auto var(--space-xl);
 }
 .products-grid {
-  display: grid; /*теперь этот блок становится главным диспетчером, который будет строго управлять расположением всех карточек товаров (<article>) внутри себя.*/
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));/* Браузер сам считает ширину экрана и пытается уместить в один ряд как можно больше колонок. */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-lg);
 }
 
-/* 1. Делаем карточку родителем для абсолютных координат */
 .product-card {
-  position: relative; /* Обязательно! Чтобы бейдж не улетел за пределы карточки */
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -171,6 +189,12 @@ a:focus-visible {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-bg);
+}
+.product-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
 }
 .product-card__title {
   margin: 0;
@@ -180,31 +204,27 @@ a:focus-visible {
   font-weight: 700;
 }
 .product-card__button {
-  margin-top: auto;/*это знаменитый Flexbox-трюк для вертикального выравнивания*/
-  align-self: flex-start;/*управляет выравниванием кнопки по горизонтали*/
+  margin-top: auto;
+  align-self: flex-start;
 }
 
 .button {
-  display: inline-block;/*превращает элемент в строчно-блочный*/
+  display: inline-block;
   padding: var(--space-sm) var(--space-md);
-  border: none; /*полностью удаляет стандартную, часто некрасивую серую рамку, которую браузеры по умолчанию рисуют вокруг тегов */
+  border: none;
   border-radius: var(--radius-sm);
-  font: inherit;/*приказывает кнопке унаследовать шрифт от родительского элемента (в вашем случае — шрифт Arial из настроек body)*/
+  font: inherit;
   text-decoration: none;
-  cursor: pointer;/*меняет стандартную стрелочку курсора мыши на иконку «указательного пальца» при наведении на кнопк*/
+  cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  /*
-  Когда пользователь наведёт мышку на кнопку и у неё изменятся цвет фона (background-color)
-   или цвет текста (color), сделай этот переход не резким, а растяни его на 0.3 секунды с мягким эффектом (ease)
-  */
 }
 .button--primary {
-  color: var(--color-white);
+  color: var(--color-white) !important;
   background-color: var(--color-success);
 }
 .button--primary:hover {
   background-color: var(--color-danger);
-  color: var(--color-white) !important;/*гарантирует, что текст на кнопке при наведении станет абсолютно белым (#ffffff), */
+  color: var(--color-white) !important;
 }
 .button--secondary {
   color: var(--color-primary);
@@ -212,11 +232,10 @@ a:focus-visible {
   border: 1px solid var(--color-primary);
 }
 .button--secondary:hover {
-  color: var(--color-white);
+  color: var(--color-white) !important;
   background-color: var(--color-primary);
 }
 
-/* Обязательное состояние disabled из методических указаний Загородних Н. А. */
 button:disabled,
 .button--disabled {
   opacity: 0.6;
@@ -224,27 +243,14 @@ button:disabled,
   pointer-events: none;
 }
 
-/* ИСПРАВЛЕНО БЭМ: Оформление кнопки закрытия через класс (вместо запрещенного #id) */
-.order-dialog__close-btn {
-  color: #000000 !important;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-muted);
-}
-.order-dialog__close-btn:hover {
-  background-color: var(--color-primary);
-  color: var(--color-white) !important;
-}
-
 .catalog-layout {
   max-width: var(--container-width);
   margin: 0 auto var(--space-xl);
   display: grid;
-  grid-template-columns: 260px 1fr;/*• жестко задает размеры колонок. Первая колонка (для фильтров)
-  всегда будет иметь фиксированную ширину 260px, а вторая (для товаров) заберет себе всё оставшееся
-   свободное пространство экрана (1fr).*/
-  grid-template-areas: "filters products";/* Мы даем первой колонке текстовое имя "filters", а второй — "products".*/
+  grid-template-columns: 260px 1fr;
+  grid-template-areas: "filters products";
   gap: var(--space-lg);
-  align-items: start;/*Оно прижимает blocks к верхнему краю.*/
+  align-items: start;
 }
 .catalog-filters {
   grid-area: filters;
@@ -252,9 +258,7 @@ button:disabled,
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-surface);
-  /* Самостоятельная доработка: Липкая фиксация боковой панели при прокрутке */
-  position: sticky;
-  top: var(--space-md);
+  position: static; /* На десктопе sticky управляется responsive.css */
 }
 .catalog-products {
   grid-area: products;
@@ -269,6 +273,11 @@ button:disabled,
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+}
+.filters-form__label {
+  display: block;
+  margin: var(--space-xs) 0;
+  cursor: pointer;
 }
 .filters-form__input[type="number"] {
   width: 100%;
@@ -289,8 +298,23 @@ button:disabled,
 .order-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
+.order-dialog__close-btn {
+  color: #000000 !important;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-muted);
+}
+.order-dialog__close-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white) !important;
+}
+
 .order-form__field {
   margin-bottom: var(--space-md);
+}
+.order-form__label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: bold;
 }
 .order-form__input,
 .order-form__select,
@@ -299,6 +323,8 @@ button:disabled,
   padding: 10px 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.9375rem; /* 15px */
 }
 .order-form__actions {
   display: flex;
@@ -308,12 +334,6 @@ button:disabled,
 
 [aria-invalid="true"] {
   border-color: var(--color-danger);
-/*• это селектор атрибута в CSS MDN Web Docs. Он ищет на странице любые теги (например, <input> или <textarea>),
- у которых в данный момент добавлен специальный атрибут aria-invalid="true".
-• border-color: var(--color-danger); — как только браузер находит такое поле,
-он мгновенно перекрашивает его рамку в ваш фирменный бордово-красный цвет опасности (--color-danger),
-сообщая пользователю: «Внимание, здесь допущена ошибка!».
-*/
 }
 .success-message {
   max-width: var(--container-width);
@@ -326,11 +346,12 @@ button:disabled,
 .breadcrumbs {
   max-width: var(--container-width);
   margin: 0 auto var(--space-md);
-  font-size: 14px;
+  font-size: 0.875rem; /* 14px */
   color: var(--color-muted);
 }
 .breadcrumbs__link {
   color: var(--color-primary);
+  text-decoration: underline;
 }
 .product-table {
   width: 100%;
@@ -338,10 +359,9 @@ button:disabled,
   margin-top: var(--space-md);
   background-color: var(--color-bg);
 }
-/* Исправлено: Стили для обязательного семантического тега caption таблицы */
 .product-table caption {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px */
   margin-bottom: var(--space-sm);
   text-align: left;
   color: var(--color-text);
@@ -362,13 +382,14 @@ button:disabled,
   width: 40px;
   height: 40px;
   background-color: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-white) !important;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 100;
+  text-decoration: none;
 }
 .feedback-container {
   max-width: 560px;
@@ -377,61 +398,50 @@ button:disabled,
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);/*которое используется для добавления тени вокруг элемента */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 .order-form__field--checkbox {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
 }
-/* 2. Базовые стили для всех бейджей */
 .product-card__badge {
   position: absolute;
-  top: 12px;           /* Отступ сверху от края карточки */
-  right: 12px;         /* Отступ справа от края карточки */
-  padding: 4px 10px;   /* Внутренние отступы, чтобы текст не сжимался */
-  font-size: 12px;     /* Делаем шрифт чуть меньше основного */
-  font-weight: bold;   /* Жирный текст */
-  color: var(--color-white); /* Белые буквы */
-  border-radius: var(--radius-sm); /* Округление углов */
-  z-index: 10;         /* Чтобы бейдж всегда был поверх картинки */
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  font-size: 0.75rem; /* 12px */
+  font-weight: bold;
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  z-index: 10;
 }
-
-/* 3. Цвет для бейджа «Хит» (Синий, как на вашем примере) */
 .product-card__badge--hit {
-  background-color: #0057b8; /* Красивый насыщенный синий цвет */
+  background-color: #0057b8;
 }
-
-/* 4. Цвет для бейджа «Новинка» (Зеленый, как на вашем примере) */
 .product-card__badge--new {
-  background-color: #198754; /* Приглушенный зеленый цвет */
+  background-color: #198754;
 }
 
 /* ===============================
-   6. Дополнительные стили для страниц КР1
+   6. Дополнительные стили КР1
    =============================== */
 .table-responsive {
   width: 100%;
   overflow-x: auto;
-  /* • Браузер автоматически добавит этой таблице аккуратную полосу горизонтальной прокрутки MDN Web Docs.
-     Пользователь сможет двигать её пальцем вправо и влево внутри выделенного блока, а сам сайт останется ровным. */
   -webkit-overflow-scrolling: touch;
-  /* • Значение touch делает прокрутку плавной, естественной и приятной,
-     как при обычном скролле ленты соцсетей — таблица будет изящно докручиваться по инерции. */
   margin-top: var(--space-md);
   margin-bottom: var(--space-xl);
 }
-
 .product-page-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-lg);
   margin-bottom: var(--space-xl);
 }
-
 .product-page-info {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  justify-content: center; /* выравниванием элементов по горизонтали (вдоль главной оси) внутри контейнера */
+  justify-content: center;
 }

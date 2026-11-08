@@ -8,14 +8,27 @@ document.addEventListener('DOMContentLoaded', () => {
   if (orderDialog && closeDialogButton && selectedProductInput) {
     orderButtons.forEach((button) => {
       button.addEventListener('click', () => {
+        if (!button.dataset.product) return; // Не перехватываем ссылки «Подробнее»
         const productName = button.dataset.product;
-        selectedProductInput.value = productName;
+        selectedProductInput.value = productName || '';
         orderDialog.showModal();
       });
     });
 
     closeDialogButton.addEventListener('click', () => {
       orderDialog.close();
+    });
+
+    // Закрытие модального окна при клике на оверлей (backdrop)
+    orderDialog.addEventListener('click', (event) => {
+      const rect = orderDialog.getBoundingClientRect();
+      const isInDialog = (
+        rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX && event.clientX <= rect.left + rect.width
+      );
+      if (!isInDialog) {
+        orderDialog.close();
+      }
     });
   }
 
