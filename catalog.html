@@ -1,189 +1,323 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог товаров — Учебный интернет-магазин</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/main.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог товаров — CactusShop (Учебный интернет-магазин)</title>
+  <!-- Основные стили проекта из КР1 -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Адаптивные стили и медиазапросы КР3 -->
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/main.js" defer></script>
 </head>
 <body>
+
+<!-- Ссылка быстрой навигации к контенту для пользователей клавиатуры (A11y) -->
+<a class="skip-link" href="#main">Перейти к основному содержимому</a>
+
+<!-- Шапка сайта с доступной семантической навигацией -->
 <header class="site-header">
-    <div class="site-header__inner">
-        <a class="site-header__logo" href="index.html">СactusShop</a>
-        <nav class="site-nav" aria-label="Основная навигация">
-            <ul class="site-nav__list">
-                <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
-                <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="catalog.html">Каталог</a></li>
-                <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
-                <li class="site-nav__item"><a class="site-nav__link" href="index.html#advantages">Преимущества</a></li>
-                <li class="site-nav__item"><a class="site-nav__link" href="index.html#popular">Популярные товары</a></li>
-                <li class="site-nav__item"><a class="site-nav__link" href="contacts.html#feedback">Обратная связь</a></li>
-            </ul>
-        </nav>
-    </div>
+  <div class="site-header__inner">
+    <a class="site-header__logo" href="index.html">СactusShop</a>
+    <nav class="site-nav" aria-label="Основная навигация">
+      <ul class="site-nav__list">
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="index.html">Главная</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link site-nav__link--active" href="catalog.html" aria-current="page">Каталог</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="contacts.html">Контакты</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="index.html#advantages">Преимущества</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="feedback.html">Обратная связь</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="product.html">Товар</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="order.html">Заявка</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-<main>
+<!-- Основное содержимое страницы -->
+<main id="main">
+  <!-- Хлебные крошки -->
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a class="breadcrumbs__link" href="index.html">Главная</a> /
+    <span class="breadcrumbs__current">Каталог</span>
+  </nav>
 
-    <nav class="breadcrumbs" aria-label="Хлебные крошки">
-        <a class="breadcrumbs__link" href="index.html">Главная</a>
-        <span class="breadcrumbs__current">Каталог</span>
-    </nav>
+  <section class="section">
+    <h1>Каталог товаров</h1>
+    <p>На этой странице представлен полный ассортимент наших комнатных растений и суккулентов.</p>
 
-    <section class="section">
-        <h1>Каталог товаров</h1>
-        <p>На этой странице представлен учебный каталог товаров. В дальнейшем здесь будут добавлены фильтры, сортировка и более подробные карточки.</p>
+    <div class="catalog-layout">
+      <!-- Боковой фильтр товаров -->
+      <aside class="catalog-filters" aria-label="Фильтры каталога">
+        <h2 class="catalog-filters__title">Фильтры</h2>
+        <form class="filters-form" action="#" method="get">
+          <fieldset class="filters-form__fieldset">
+            <legend class="filters-form__legend">Категория</legend>
+            <label class="filters-form__label">
+              <input type="checkbox" name="category" value="all" checked> Все товары
+            </label>
+            <label class="filters-form__label">
+              <input type="checkbox" name="category" value="popular"> Популярные
+            </label>
+            <label class="filters-form__label">
+              <input type="checkbox" name="category" value="new"> Новинки
+            </label>
+          </fieldset>
 
-        <div class="catalog-layout">
+          <fieldset class="filters-form__fieldset">
+            <legend class="filters-form__legend">Цена (руб.)</legend>
+            <label class="filters-form__label" for="price-from">От</label>
+            <input class="filters-form__input" id="price-from" name="price-from" type="number" min="0" placeholder="0">
 
-            <aside class="catalog-filters">
-                <h2 class="catalog-filters__title">Фильтры</h2>
+            <label class="filters-form__label" for="price-to">До</label>
+            <input class="filters-form__input" id="price-to" name="price-to" type="number" min="0" placeholder="5000">
+          </fieldset>
 
-                <form class="filters-form" action="#" method="get">
-                    <fieldset class="filters-form__fieldset">
-                        <legend class="filters-form__legend">Категория</legend>
-                        <label class="filters-form__label">
-                            <input type="checkbox" name="category" value="all"> Все товары
-                        </label>
-                        <label class="filters-form__label">
-                            <input type="checkbox" name="category" value="popular"> Популярные
-                        </label>
-                        <label class="filters-form__label">
-                            <input type="checkbox" name="category" value="new"> Новинки
-                        </label>
-                    </fieldset>
+          <button class="button button--primary filters-form__button" type="submit">Применить</button>
+        </form>
+      </aside>
 
-                    <fieldset class="filters-form__fieldset">
-                        <legend class="filters-form__legend">Цена</legend>
-                        <label class="filters-form__label" for="price-from">От</label>
-                        <input class="filters-form__input" id="price-from" name="price-from" type="number" min="0" placeholder="0">
+      <!-- Список карточек товаров -->
+      <section class="catalog-products" aria-label="Список товаров">
+        <h2 class="catalog-products__title">Все растения в наличии</h2>
 
-                        <label class="filters-form__label" for="price-to">До</label>
-                        <input class="filters-form__input" id="price-to" name="price-to" type="number" min="0" placeholder="5000">
-                    </fieldset>
+        <div class="products-grid">
+          <!-- Товар 1 -->
+          <article class="product-card">
+            <span class="product-card__badge product-card__badge--hit">Хит</span>
+            <picture>
+              <source type="image/webp"
+                      srcset="images/ferocactus-480.webp 480w, images/ferocactus-640.webp 640w, images/ferocactus-960.webp 960w"
+                      sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px">
+              <img class="product-card__image"
+                   src="images/ferocactus-640.jpg"
+                   srcset="images/ferocactus-480.jpg 480w, images/ferocactus-640.jpg 640w, images/ferocactus-960.jpg 960w"
+                   sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px"
+                   alt="Ферокактус шварции в горшке"
+                   width="640" height="480" loading="lazy">
+            </picture>
+            <h3 class="product-card__title">Ферокактус шварции</h3>
+            <p class="product-card__description">Ферокактус Шварции (Ferocactus schwarzii) — это необычный комнатный кактус с плотным шаровидным стеблем, выраженными рёбрами и декоративными светлыми колючками.</p>
+            <p class="product-card__price">Цена: 381 руб.</p>
+            <a class="button button--primary product-card__button" href="product.html">Подробнее</a>
+          </article>
 
-                    <button class="button button--primary filters-form__button" type="submit">Применить</button>
-                </form>
-            </aside>
+          <!-- Товар 2 -->
+          <article class="product-card">
+            <picture>
+              <source type="image/webp"
+                      srcset="images/haworthia-480.webp 480w, images/haworthia-640.webp 640w, images/haworthia-960.webp 960w"
+                      sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px">
+              <img class="product-card__image"
+                   src="images/haworthia-640.jpg"
+                   srcset="images/haworthia-480.jpg 480w, images/haworthia-640.jpg 640w, images/haworthia-960.jpg 960w"
+                   sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px"
+                   alt="Хавортия маргаритифера"
+                   width="640" height="480" loading="lazy">
+            </picture>
+            <h3 class="product-card__title">Хавортия маргаритифера</h3>
+            <p class="product-card__description">Хавортия Маргаритифера (Haworthia Margaritifera) – редкое комнатное растение, отличающееся плотными зелёными листьями с белыми выпуклыми точками-жемчужинами.</p>
+            <p class="product-card__price">Цена: 499 руб.</p>
+            <button class="button button--primary product-card__button" type="button" data-product="Хавортия маргаритифера">Заказать</button>
+          </article>
 
-            <!-- Список товаров справа -->
-            <section class="catalog-products">
-                <h2 class="catalog-products__title">Список товаров</h2>
+          <!-- Товар 3 -->
+          <article class="product-card">
+            <span class="product-card__badge product-card__badge--new">Новинка</span>
+            <picture>
+              <source type="image/webp"
+                      srcset="images/echeveria-480.webp 480w, images/echeveria-640.webp 640w, images/echeveria-960.webp 960w"
+                      sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px">
+              <img class="product-card__image"
+                   src="images/echeveria-640.jpg"
+                   srcset="images/echeveria-480.jpg 480w, images/echeveria-640.jpg 640w, images/echeveria-960.jpg 960w"
+                   sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px"
+                   alt="Эхеверия мун фейри"
+                   width="640" height="480" loading="lazy">
+            </picture>
+            <h3 class="product-card__title">Эхеверия мун фейри</h3>
+            <p class="product-card__description">Эхеверия Мун Фейри — декоративный суккулент с нежной окраской и аккуратной розеткой листьев. Ценится за гармоничную форму и мягкие оттенки.</p>
+            <p class="product-card__price">Цена: 659 руб.</p>
+            <button class="button button--primary product-card__button" type="button" data-product="Эхеверия мун фейри">Заказать</button>
+          </article>
 
-                <div class="products-grid">
-                    <article class="product-card">
-                        <img class="product-card__image" src="images/ferocactus.jpg" alt="Ферокактус шварции в горшке" width="300" height="300" loading="lazy">
-                        <h3 class="product-card__title">Ферокактус шварции</h3>
-                        <p class="product-card__description">Ферокактус Шварции (Ferocactus schwarzii) — это необычный комнатный кактус с плотным шаровидным стеблем, выраженными рёбрами и декоративными светлыми колючками.</p>
-                        <p class="product-card__price">Цена: 381 руб.</p>
-                        <button class="button button--primary product-card__button" type="button" data-product="Товар 1">Заказать</button>
-                    </article>
+          <!-- Товар 4 -->
+          <article class="product-card">
+            <picture>
+              <source type="image/webp"
+                      srcset="images/kaktus-miks-480.webp 480w, images/kaktus-miks-640.webp 640w, images/kaktus-miks-960.webp 960w"
+                      sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px">
+              <img class="product-card__image"
+                   src="images/kaktus-miks-640.jpg"
+                   srcset="images/kaktus-miks-480.jpg 480w, images/kaktus-miks-640.jpg 640w, images/kaktus-miks-960.jpg 960w"
+                   sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px"
+                   alt="Кактус Микс в интерьерной композиции"
+                   width="640" height="480" loading="lazy">
+            </picture>
+            <h3 class="product-card__title">Кактус Микс (Cactus Mix)</h3>
+            <p class="product-card__description">Кактус Микс — это набор из разных видов кактусов в одной композиции. Сочетает шаровидные и колонновидные формы, создавая уютный пустынный пейзаж.</p>
+            <p class="product-card__price">Цена: 2679 руб.</p>
+            <button class="button button--primary product-card__button" type="button" data-product="Кактус Микс">Заказать</button>
+          </article>
 
-                    <article class="product-card">
-                        <img class="product-card__image" src="images/haworthia.jpg" alt="Хавортия маргаритифера" width="300" height="300" loading="lazy">
-                        <h3 class="product-card__title">Хавортия маргаритифера</h3>
-                        <p class="product-card__description">Хавортия Маргаритифера (Haworthia Margaritifera) – это редкое комнатное растение и суккулент, отличающееся плотными зелёными листьями с белыми выпуклыми точками, напоминающими жемчужины.</p>
-                        <p class="product-card__price">Цена: 499 руб.</p>
-                        <button class="button button--primary product-card__button" type="button" data-product="Товар 2">Заказать</button>
-                    </article>
+          <!-- Товар 5 -->
+          <article class="product-card">
+            <picture>
+              <source type="image/webp"
+                      srcset="images/ehinokaktus-gruzoni-480.webp 480w, images/ehinokaktus-gruzoni-640.webp 640w, images/ehinokaktus-gruzoni-960.webp 960w"
+                      sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px">
+              <img class="product-card__image"
+                   src="images/ehinokaktus-gruzoni-640.jpg"
+                   srcset="images/ehinokaktus-gruzoni-480.jpg 480w, images/ehinokaktus-gruzoni-640.jpg 640w, images/ehinokaktus-gruzoni-960.jpg 960w"
+                   sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px"
+                   alt="Эхинокактус грузони с золотистыми колючками"
+                   width="640" height="480" loading="lazy">
+            </picture>
+            <h3 class="product-card__title">Эхинокактус грузони</h3>
+            <p class="product-card__description">Эхинокактус Грузони — декоративный комнатный кактус округлой формы с выраженными рёбрами и золотистыми колючками. Знаменитый «золотой шар».</p>
+            <p class="product-card__price">Цена: 4789 руб.</p>
+            <button class="button button--primary product-card__button" type="button" data-product="Эхинокактус грузони">Заказать</button>
+          </article>
 
-                    <article class="product-card">
-                        <img class="product-card__image" src="images/echeveria.jpg" alt="Эхеверия мун фейри" width="300" height="300" loading="lazy">
-                        <h3 class="product-card__title">Эхеверия мун фейри</h3>
-                        <p class="product-card__description">Эхеверия Мун Фейри — декоративный суккулент с нежной окраской и аккуратной розеткой листьев. Растение относится к группе Echeveria и ценится за гармоничную форму и мягкие оттенки.</p>
-                        <p class="product-card__price">Цена: 659 руб.</p>
-                        <button class="button button--primary product-card__button" type="button" data-product="Товар 3">Заказать</button>
-                    </article>
-                </div>
-            </section>
-
+          <!-- Товар 6 -->
+          <article class="product-card">
+            <picture>
+              <source type="image/webp"
+                      srcset="images/krassula-ovata-minor-480.webp 480w, images/krassula-ovata-minor-640.webp 640w, images/krassula-ovata-minor-960.webp 960w"
+                      sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px">
+              <img class="product-card__image"
+                   src="images/krassula-ovata-minor-640.jpg"
+                   srcset="images/krassula-ovata-minor-480.jpg 480w, images/krassula-ovata-minor-640.jpg 640w, images/krassula-ovata-minor-960.jpg 960w"
+                   sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 48px), 260px"
+                   alt="Крассула овата минор — денежное дерево"
+                   width="640" height="480" loading="lazy">
+            </picture>
+            <h3 class="product-card__title">Крассула овата минор</h3>
+            <p class="product-card__description">Крассула Овата Минор — компактный сорт «денежного дерева» с аккуратными мясистыми листьями. Прекрасно подходит для небольших помещений и бонсай.</p>
+            <p class="product-card__price">Цена: 899 руб.</p>
+            <button class="button button--primary product-card__button" type="button" data-product="Крассула овата минор">Заказать</button>
+          </article>
         </div>
-    </section>
+      </section>
+    </div>
+  </section>
 
-    <section class="section">
-        <h2>Сравнение характеристик</h2>
-        <table class="product-table">
-            <thead>
-            <tr>
-                <th>Характеристика</th>
-                <th>Ферокатус шварции</th>
-                <th>Хавортия маргаритифера</th>
-                <th>Эхеверия мун фейри</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><strong>Тип защитных элементов / Текстура поверхности</strong></td>
-                <td>Имеет выраженные ребра с острыми декоративными светлыми колючками.</td>
-                <td>Без колючек, но с плотными листьями, покрытыми выпуклыми белыми точками, напоминающими жемчужины.</td>
-                <td>Полностью гладкие, нежные листья без колючек и наростов, собранные в аккуратную розетку.</td>
-            </tr>
-            <tr>
-                <td><strong>Форма роста и силуэт</strong></td>
-                <td>Шаровидная (круглая) форма с четкой вертикальной геометрией за счет ребер.</td>
-                <td>Кустистая / звездчатая форма с заостренными листьями, растущими вверх и в стороны.</td>
-                <td>Форма правильной геометрии («каменная роза») с плоской и компактной прикорневой розеткой.
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Ценовая категория</strong></td>
-                <td>Бюджетный вариант (381 руб.) — самый доступный товар в представленной тройке.</td>
-                <td>Средний ценовой сегмент (499 руб.) — сбалансированная стоимость за редкий суккулент.</td>
-                <td>Премиум-вариант (659 руб.) — самое дорогое растение из трех, позиционируемое как декоративный суккулент с нежным окрасом.
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
-
+  <!-- Сравнительная таблица в адаптивном контейнере -->
+  <section class="section">
+    <h2>Сравнение характеристик</h2>
+    <div class="table-responsive">
+      <table class="product-table">
+        <caption>Сравнение характеристик и параметров суккулентов каталога CactusShop</caption>
+        <thead>
+          <tr>
+            <th scope="col">Характеристика</th>
+            <th scope="col">Ферокактус шварции</th>
+            <th scope="col">Хавортия маргаритифера</th>
+            <th scope="col">Эхеверия мун фейри</th>
+            <th scope="col">Кактус Микс</th>
+            <th scope="col">Эхинокактус грузони</th>
+            <th scope="col">Крассула овата минор</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Текстура поверхности</th>
+            <td>Выраженные ребра со светлыми колючками</td>
+            <td>Листья с белыми выпуклыми точками</td>
+            <td>Гладкие нежные листья без колючек</td>
+            <td>Разнообразная (колючая и гладкая)</td>
+            <td>Плотные золотистые колючки</td>
+            <td>Гладкие мясистые глянцевые листья</td>
+          </tr>
+          <tr>
+            <th scope="row">Форма роста</th>
+            <td>Шаровидная вертикальная</td>
+            <td>Звездчатая розетка</td>
+            <td>«Каменная роза»</td>
+            <td>Комбинированный силуэт</td>
+            <td>Куполообразный шар</td>
+            <td>Миниатюрное деревце</td>
+          </tr>
+          <tr>
+            <th scope="row">Ценовой сегмент</th>
+            <td>Бюджетный (381 руб.)</td>
+            <td>Сбалансированный (499 руб.)</td>
+            <td>Декоративный (659 руб.)</td>
+            <td>Набор (2679 руб.)</td>
+            <td>Коллекционный (4789 руб.)</td>
+            <td>Доступный (899 руб.)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 </main>
 
+<!-- Подвал сайта -->
 <footer>
-    <p>&copy; 2026 Учебный проект. Все права защищены.</p>
-    <p>Магазин комнатных растений и суккулентов</p>
+  <p>&copy; 2026 Учебный проект CactusShop. Все права защищены.</p>
+  <p>Магазин комнатных растений и суккулентов</p>
 </footer>
 
-
+<!-- Нативное модальное окно заявки (A11y Dialog) -->
 <dialog class="order-dialog" id="order-dialog" aria-labelledby="order-dialog-title">
-    <h2 class="order-dialog__title" id="order-dialog-title">Оформление заявки</h2>
-    <form class="order-form" id="order-form" action="#" method="post" novalidate>
-        <input id="selected-product" name="selected-product" type="hidden">
+  <h2 class="order-dialog__title" id="order-dialog-title">Оформление заявки</h2>
+  <form class="order-form" id="order-form" action="#" method="post" novalidate>
+    <input id="selected-product" name="selected-product" type="hidden">
 
-        <div class="order-form__field">
-            <label class="order-form__label" for="order-name">Имя</label>
-            <input class="order-form__input" id="order-name" name="name" type="text" placeholder="Введите ваше имя" minlength="2" required>
-        </div>
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-name">Имя</label>
+      <input class="order-form__input" id="order-name" name="name" type="text" placeholder="Введите ваше имя" minlength="2" required>
+    </div>
 
-        <div class="order-form__field">
-            <label class="order-form__label" for="order-email">E-mail</label>
-            <input class="order-form__input" id="order-email" name="email" type="email" placeholder="example@mail.ru" required>
-        </div>
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-email">E-mail</label>
+      <input class="order-form__input" id="order-email" name="email" type="email" placeholder="example@mail.ru" required>
+    </div>
 
-        <div class="order-form__field">
-            <label class="order-form__label" for="order-phone">Телефон</label>
-            <input class="order-form__input" id="order-phone" name="phone" type="tel" placeholder="+7 (900) 000-00-00" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" required>
-            <small>Формат: +7 (900) 000-00-00</small>
-        </div>
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-phone">Телефон</label>
+      <input class="order-form__input" id="order-phone" name="phone" type="tel" placeholder="+7 (900) 000-00-00" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" required>
+    </div>
 
-        <div class="order-form__field">
-            <label class="order-form__label" for="order-comment">Комментарий</label>
-            <textarea class="order-form__input" id="order-comment" name="comment" rows="4" placeholder="Укажите дополнительную информацию"></textarea>
-        </div>
+    <div class="order-form__field">
+      <label class="order-form__label" for="order-comment">Комментарий к заказу</label>
+      <textarea class="order-form__textarea" id="order-comment" name="comment" rows="3" placeholder="Укажите адрес доставки или пожелания"></textarea>
+    </div>
 
-        <div class="order-form__field">
-            <label>
-                <input id="order-agreement" name="agreement" type="checkbox" required> Я согласен на обработку данных
-            </label>
-        </div>
+    <div class="order-form__field order-form__field--checkbox">
+      <input id="order-agreement" name="agreement" type="checkbox" required>
+      <label for="order-agreement">Я согласен на обработку персональных данных</label>
+    </div>
 
-        <div class="order-form__actions">
-            <button class="button button--secondary" type="button" id="close-order-dialog">Закрыть</button>
-            <button class="button button--primary" type="submit">Отправить заявку</button>
-        </div>
-    </form>
+    <div class="order-form__actions">
+      <button class="button button--secondary" type="button" id="close-order-dialog" aria-label="Закрыть окно заявки">Закрыть</button>
+      <button class="button button--primary" type="submit">Отправить заявку</button>
+    </div>
+  </form>
 </dialog>
 
-<p class="success-message" id="success-message" hidden>Форма успешно отправлена!</p>
+<!-- Доступное всплывающее уведомление об успешной отправке -->
+<p class="success-message" id="success-message" role="alert" hidden>Форма успешно отправлена! Мы свяжемся с вами в ближайшее время.</p>
+
+<!-- Плавающая кнопка возврата наверх с сенсорной зоной 44px -->
+<a class="scroll-top-btn" href="#" aria-label="Вернуться наверх страницы">↑</a>
+
 </body>
 </html>
